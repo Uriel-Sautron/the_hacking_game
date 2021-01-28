@@ -56,6 +56,7 @@ const PageList = (argument) => {
         };
 
         fetchList("https://api.rawg.io/api/games", cleanedArgument);
+        fetchSelect();
     };
 
     const welcomeShow = document.getElementById("welcome");

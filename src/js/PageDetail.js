@@ -107,7 +107,7 @@ const PageDetail = (argument) => {
                    <p class= "rating">${response.rating}/5 - ${response.ratings_count} votes</p>
                   </div>
 
-                  <section >
+                  <section class="marg-b50">
                     <p>${response.description}</p>
                     
                     <div class="grid-detail">
@@ -121,28 +121,28 @@ const PageDetail = (argument) => {
                     </div>
                   </section>
 
-                  <section>
+                  <section class="marg-b50">
                     <h2 class="title">BUY</h2>
                     ${storeShow(response)}
                   </section>
 
-                  <section>
+                  <section class="marg-b50">
                     <h2 class="title">TRAILER</h2>
                     ${trailer()}
                   </section>
 
-                  <section>
+                  <section class="marg-b50">
                     <h2 class="title">SCREENSHOTS</h2>
                     <div id="screen-shots" class="grid-screen"></div>
                   </section>
 
-                  <section>
+                  <section class="marg-b50">
                     <h2 class="title">YOUTUBE</h2>
                     <div id="youtube"></div>
                     <div id="youtube-mini"></div>
                   </section>
 
-                  <section>
+                  <section class="marg-b50">
                     <h2  class="title">SIMILAR GAMES</h2>
                     <div id="similar-games" class="articles"></div>
                   </section>

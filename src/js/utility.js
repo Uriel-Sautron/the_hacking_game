@@ -117,8 +117,7 @@ const fetchSelect = () => {
             <option value="${option.slug}">${option.name}</option>
             `
             })
-            console.log(options);
-            return options;
+            document.getElementById("selectplatform").innerHTML = options;
         })
 }
 
