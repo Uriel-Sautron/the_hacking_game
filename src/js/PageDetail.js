@@ -1,4 +1,4 @@
-import { storeShow, storeIcons } from './utility'
+import { storeShow, storeIcons, iconsShow } from './utility'
 
 const PageDetail = (argument) => {
     const preparePage = () => {
@@ -16,7 +16,9 @@ const PageDetail = (argument) => {
                     .then((response) => {
                         let screenShots = "";
                         for (let i = 0; i < 4; i++) {
-                            screenShots += `<img src="${response.results[i].image}" alt="">`
+                            if (response.results[i]) {
+                                screenShots += `<img src="${response.results[i].image}" alt="">`
+                            }
                         }
                         document.getElementById("screen-shots").innerHTML = screenShots;
                     })
@@ -26,7 +28,9 @@ const PageDetail = (argument) => {
                 fetch(`${finalURL}/youtube`)
                     .then((response) => response.json())
                     .then((response) => {
-                            let youtube = `
+                            let youtube = ""
+                            if (response.results[0]) {
+                                youtube = `
                             <div class="first-yt">
                               <iframe width="100%" height="500" src="https://www.youtube.com/embed/${
                                 response.results[0].external_id
@@ -37,18 +41,41 @@ const PageDetail = (argument) => {
                               <h4 class="rating">${response.results[0].channel_title} - ${response.results[0].created}</h4>
                               </div>
                       `
+                            }
                             document.getElementById("youtube").innerHTML = youtube;
 
                             let youtubeMini = "";
                             for (let i = 1; i < 4; i++) {
-                                youtubeMini += `
+                                if (response.results[i]) {
+                                    youtubeMini += `
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/${response.results[i].external_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                               `
+                                }
                             }
                             document.getElementById("youtube-mini").innerHTML = youtubeMini;
                         }
 
                     )
+            }
+
+            const fetchSimilarGames = (finalURL) => {
+                fetch(`${finalURL}/suggested`)
+                    .then((response) => response.json())
+                    .then((response) => {
+                        let similarGames = "";
+                        for (let i = 0; i < 6; i++) {
+                            similarGames += `
+                              <div class="cardGame">
+                                  <img class="img-card" src="${response.results[i].background_image}" alt="${response.results[i].name}">
+                                  <a href = "#pagedetail/${response.results[i].id}">${response.results[i].name}</a>
+                                <div id="icons">
+                                  ${iconsShow(response.results[i].parent_platforms)}
+                                </div>
+                              </div>
+                            `
+                        }
+                        document.getElementById("similar-games").innerHTML = similarGames;
+                    })
             }
 
             fetch(`${finalURL}`)
@@ -59,6 +86,18 @@ const PageDetail = (argument) => {
                     let publishers = response.publishers.map(publi => publi.name).join(", ");
                     let genres = response.genres.map(genre => genre.name).join(", ");
                     let tags = response.tags.map(tag => tag.name).join(", ");
+
+                    const trailer = () => {
+                        let trailer = ""
+                        if (response.clip) {
+                            trailer = `
+                        <video controls width ="100%">
+                         <source src ="${response.clip.clip}" type="video/mp4">
+                        </video>
+                        `
+                        }
+                        return trailer
+                    }
 
                     gameDetail = `
                   <div class="jumbo" style="background-image: url('${response.background_image}');">
@@ -91,9 +130,7 @@ const PageDetail = (argument) => {
 
                   <section>
                     <h2 class="title">TRAILER</h2>
-                    <video controls width ="100%">
-                      <source src ="${response.clip.clip}" type="video/mp4">
-                    </video>
+                    ${trailer()}
                   </section>
 
                   <section>
@@ -108,22 +145,15 @@ const PageDetail = (argument) => {
                   </section>
 
                   <section>
-                    <h2 class="title">SIMILAR GAMES</h2>
+                    <h2  class="title">SIMILAR GAMES</h2>
+                    <div id="similar-games" class="articles"></div>
                   </section>
-
-
                   `
-                        // let {stores, clip, screenshots, vidéosYT, similarGame } = response;
-
-                    // let articleDOM = document.querySelector(".page-detail .article");
-
-                    // articleDOM.querySelector("h1.title").innerHTML = name;
-                    // articleDOM.querySelector("p.release-date span").innerHTML = released;
-                    // articleDOM.querySelector("p.description").innerHTML = description;
                     document.querySelector(".page-detail").innerHTML = gameDetail;
 
                     fetchScreenShots(finalURL);
                     fetchYouTube(finalURL);
+                    fetchSimilarGames(finalURL);
                 });
         };
 

@@ -19,7 +19,7 @@ const setRoute = () => {
     let path = window.location.hash.substring(1).split("/");
     pageArgument = path[1] || "";
 
-    var pageContent = document.getElementById("pageContent");
+    let pageContent = document.getElementById("pageContent");
     routes[path[0]](pageArgument);
     return true;
 };

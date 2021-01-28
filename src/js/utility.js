@@ -16,16 +16,16 @@ const platformsIcons = {
 };
 
 const storeIcons = {
-    steam: "<img data-id='1' src='src/images/icons/steam.svg' alt=''>",
-    "playstation-store": "<img data-id='2' src='src/images/icons/ps4.svg' alt=''>",
-    "xbox-store": "<img data-id='3' src='src/images/icons/xbox.svg' alt=''>",
-    "apple-appstore": "<img data-id='4' src='src/images/icons/applestore.svg' alt=''>",
-    gog: "<img data-id='5' src='src/images/icons/gog.svg' alt=''>",
-    nintendo: "<img data-id='6' src='src/images/icons/switch.svg' alt=''>",
-    xbox360: "<img data-id='7' src='src/images/icons/xbox.svg' alt=''>",
-    "google-play": "<img data-id='8' src='src/images/icons/googleplay.svg' alt=''>",
-    itch: "<img data-id='9' src='src/images/icons/itch.svg' alt=''>",
-    "epic-games": "<img data-id='10' src='src/images/icons/epic.svg' alt=''>",
+    steam: "<img data-id='1' src='src/images/icons/steam.svg' alt='' class='platform-icon'>",
+    "playstation-store": "<img data-id='2' src='src/images/icons/ps4.svg' alt='' class='platform-icon'>",
+    "xbox-store": "<img data-id='3' src='src/images/icons/xbox.svg' alt='' class='platform-icon'>",
+    "apple-appstore": "<img data-id='4' src='src/images/icons/applestore.svg' alt='' class='platform-icon'>",
+    gog: "<img data-id='5' src='src/images/icons/gog.svg' alt='' class='platform-icon'>",
+    nintendo: "<img data-id='6' src='src/images/icons/switch.svg' alt='' class='platform-icon'>",
+    xbox360: "<img data-id='7' src='src/images/icons/xbox.svg' alt='' class='platform-icon'>",
+    "google-play": "<img data-id='8' src='src/images/icons/googleplay.svg' alt='' class='platform-icon'>",
+    itch: "<img data-id='9' src='src/images/icons/itch.svg' alt='' class='platform-icon'>",
+    "epic-games": "<img data-id='10' src='src/images/icons/epic.svg' alt='' class='platform-icon'>",
 };
 
 const iconsShow = (platforms) => {
@@ -37,4 +37,18 @@ const iconsShow = (platforms) => {
     return icons
 }
 
-export { iconsShow }
+const storeShow = (game) => {
+    let iconsStore = ""
+    game.stores.forEach(store => {
+        let iconStore = store.store.slug;
+        iconsStore += `
+        <div>
+            <a class="store-name" href="${store.url}">${store.store.name}</a>
+            ${storeIcons[iconStore]}
+        </div>
+        `
+    })
+    return iconsStore;
+}
+
+export { iconsShow, storeShow, storeIcons }

@@ -1,6 +1,6 @@
 import { welcome } from './components';
 import { iconsShow } from './utility';
-import { platformsIcons } from './utility'
+
 
 const Home = (argument = "") => {
     const getDate = () => {
@@ -27,27 +27,23 @@ const Home = (argument = "") => {
         const fetchList = (url, argument) => {
             let finalURL = url;
             if (argument) {
-                finalURL = url + "?dates=" + argument;
+                finalURL = url + "?dates=" + argument + "&page_size=27";
             }
 
             fetch(`${finalURL}`)
                 .then((response) => response.json())
                 .then((response) => {
                     response.results.forEach((article) => {
-                        const parentPlatforms = article.parent_platforms;
 
-                        // console.log(iconsShow(parentPlatforms));
                         articles += `
-                        <div class="cardGame">
-                            <img class="img-card" src="${article.background_image}" alt="${article.name}">
-                            <a href = "#pagedetail/${article.id}">${article.name}</a>
-                            <div>    
-                            </div> 
-                          <div id="icons">
-                          ${iconsShow(article.parent_platforms)}
-                          </div>
-                        </div>
-                `;
+                            <div class="cardGame">
+                                <img class="img-card" src="${article.background_image}" alt="${article.name}">
+                                <a href = "#pagedetail/${article.id}">${article.name}</a>
+                                <div id="icons">
+                                 ${iconsShow(article.parent_platforms)}
+                                </div>
+                            </div>
+                        `;
                     });
                     document.querySelector(".page-list .articles").innerHTML = articles;
                 });
