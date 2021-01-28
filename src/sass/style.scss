@@ -1,4 +1,182 @@
-$color-red: rgb(255, 20, 20);
+@import "responsive.scss";
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+$dark: #191919;
+$primary: #C70A30;
+$white: #FFFFFF;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    font-family: 'Open Sans', sans-serif;
+    height: 100%;
+}
+
+body {
+    margin: 50px;
+    background-color: $dark;
+    position: relative;
+    min-height: 100%;
+    padding-bottom: 5em;
+}
+
 p {
-    color: $color-red;
+    color: $white;
+}
+
+.title {
+    font-weight: 600;
+    text-decoration: none;
+    font-size: 4vw;
+    color: $primary;
+}
+
+header {
+    display: flex;
+    margin-bottom: 40px;
+    flex-direction: row;
+    justify-content: space-between;
+    justify-items: center;
+    align-items: center;
+}
+
+//searchbar
+.searchbar {
+    display: flex;
+    padding: 8px 12px;
+    margin-top: 14px;
+    border: 2px solid $white;
+    border-radius: 30px;
+    &:focus {
+        outline: none;
+    }
+}
+
+.fa-search {
+    color: $white;
+}
+
+.formInput {
+    background-color: $dark;
+    border: none;
+    color: $white;
+    margin-left: 6px;
+    &:focus {
+        border: none;
+        outline: none;
+        box-shadow: none;
+        background-color: $dark;
+    }
+}
+
+//welcome
+.saywelcome {
+    @extend .title;
+    color: $white;
+}
+
+.description {
+    text-align: left;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+// Select
+select {
+    background-color: $primary;
+    color: $white;
+    font-size: 20px;
+    padding: 10px 15px;
+    width: 11em;
+    border: none;
+    border-right: 5px solid $primary;
+}
+
+// Grid
+.articles {
+    display: grid;
+    justify-content: space-between;
+    grid-template-columns: repeat(3, 32%);
+    grid-template-rows: repeat(auto, 500px);
+    grid-gap: 20px;
+}
+
+.img-card {
+    height: 15vw;
+    width: 100%;
+    object-fit: cover;
+}
+
+.cardGame a {
+    color: white;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+// Footer
+footer {
+    margin-top: 20px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-bottom: 2em;
+}
+
+.footer-bar {
+    height: 15px;
+    width: 200px;
+    background-color: $primary;
+    margin-bottom: 20px;
+}
+
+// Platform Icon
+.platform-icon {
+    height: 2em;
+    margin-top: 1em;
+    margin-right: 1em;
+}
+
+//loadMoreBtn
+$btn-bkg: $primary;
+.load-div {
+    text-align: center;
+    justify-content: center;
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.loadBtn {
+    margin: 2em;
+    cursor: pointer;
+    padding: 10px 8px 10px 8px;
+    background-color: $btn-bkg;
+    color: $white;
+    font-size: 1.4em;
+    border: none;
+    display: inline-block;
+    &:hover {
+        background-color: darken($btn-bkg, 10%);
+    }
+}
+
+//responsive
+@media #{$medium} {
+    select {
+        width: 8em;
+    }
+}
+
+@media #{$small} {
+    .searchbar {
+        width: 40%;
+        margin: 0 auto;
+    }
+    .formInput {
+        width: 70%;
+    }
 }
