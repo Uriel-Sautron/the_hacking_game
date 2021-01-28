@@ -4,11 +4,9 @@ const PageDetail = (argument) => {
     const preparePage = () => {
         let cleanedArgument = argument.replace(/\s+/g, "-");
         let gameDetail = "";
-        let youtube = "";
 
         const fetchGame = (url, argument) => {
             let finalURL = url + argument;
-
 
             const fetchScreenShots = (finalURL) => {
                 fetch(`${finalURL}/screenshots`)
@@ -22,15 +20,15 @@ const PageDetail = (argument) => {
                         }
                         document.getElementById("screen-shots").innerHTML = screenShots;
                     })
-            }
+            };
 
             const fetchYouTube = (finalURL) => {
                 fetch(`${finalURL}/youtube`)
                     .then((response) => response.json())
                     .then((response) => {
-                            let youtube = ""
-                            if (response.results[0]) {
-                                youtube = `
+                        let youtube = ""
+                        if (response.results[0]) {
+                            youtube = `
                             <div class="first-yt">
                               <iframe width="100%" height="500" src="https://www.youtube.com/embed/${
                                 response.results[0].external_id
@@ -41,21 +39,19 @@ const PageDetail = (argument) => {
                               <h4 class="rating">${response.results[0].channel_title} - ${response.results[0].created}</h4>
                               </div>
                       `
-                            }
-                            document.getElementById("youtube").innerHTML = youtube;
+                        }
+                        document.getElementById("youtube").innerHTML = youtube;
 
-                            let youtubeMini = "";
-                            for (let i = 1; i < 4; i++) {
-                                if (response.results[i]) {
-                                    youtubeMini += `
+                        let youtubeMini = "";
+                        for (let i = 1; i < 4; i++) {
+                            if (response.results[i]) {
+                                youtubeMini += `
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/${response.results[i].external_id}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                               `
-                                }
                             }
-                            document.getElementById("youtube-mini").innerHTML = youtubeMini;
                         }
-
-                    )
+                        document.getElementById("youtube-mini").innerHTML = youtubeMini;
+                    })
             }
 
             const fetchSimilarGames = (finalURL) => {
@@ -85,7 +81,9 @@ const PageDetail = (argument) => {
                     let developers = response.developers.map(dev => dev.name).join(", ");
                     let publishers = response.publishers.map(publi => publi.name).join(", ");
                     let genres = response.genres.map(genre => genre.name).join(", ");
-                    let tags = response.tags.map(tag => tag.name).join(", ");
+                    let tags = response.tags
+                        .filter(tag => tag.language === "eng")
+                        .map(tag => tag.name).join(", ");
 
                     const trailer = () => {
                         let trailer = ""

@@ -1,6 +1,7 @@
 import '../sass/style.scss';
 import { routes } from './routes';
 import { PageList } from './PageList';
+import { hiddenShow } from './utility';
 
 const searchBar = document.querySelector("form");
 
