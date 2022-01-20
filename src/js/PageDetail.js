@@ -6,10 +6,11 @@ const PageDetail = (argument) => {
         let gameDetail = "";
 
         const fetchGame = (url, argument) => {
+          const apiKey = "?key=cb9cfdda08754058af9c2d08e3043aed";
             let finalURL = url + argument;
 
             const fetchScreenShots = (finalURL) => {
-                fetch(`${finalURL}/screenshots`)
+                fetch(`${finalURL}/screenshots${apiKey}`)
                     .then((response) => response.json())
                     .then((response) => {
                         let screenShots = "";
@@ -23,7 +24,7 @@ const PageDetail = (argument) => {
             };
 
             const fetchYouTube = (finalURL) => {
-                fetch(`${finalURL}/youtube`)
+                fetch(`${finalURL}/youtube${apiKey}`)
                     .then((response) => response.json())
                     .then((response) => {
                         let youtube = ""
@@ -55,7 +56,7 @@ const PageDetail = (argument) => {
             }
 
             const fetchSimilarGames = (finalURL) => {
-                fetch(`${finalURL}/suggested`)
+                fetch(`${finalURL}/suggested${apiKey}`)
                     .then((response) => response.json())
                     .then((response) => {
                         let similarGames = "";
@@ -74,7 +75,7 @@ const PageDetail = (argument) => {
                     })
             }
 
-            fetch(`${finalURL}`)
+            fetch(`${finalURL}${apiKey}`)
                 .then((response) => response.json())
                 .then((response) => {
                     let platforms = response.platforms.map(plat => plat.platform.name).join(", ");
@@ -155,7 +156,7 @@ const PageDetail = (argument) => {
                 });
         };
 
-        fetchGame("https://api.rawg.io/api/games/", cleanedArgument);
+        fetchGame("https://api.rawg.io/api/games", cleanedArgument);
     };
 
     const welcomeShow = document.getElementById("welcome");

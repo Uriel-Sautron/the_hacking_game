@@ -5,13 +5,14 @@ const PageList = (argument) => {
     const preparePage = () => {
         let cleanedArgument = argument.replace(/\s+/g, "-");
         let articles = "";
+        const apiKey = "&key=cb9cfdda08754058af9c2d08e3043aed";
 
         const fetchList = (url, argument) => {
             let finalURL = url;
             if (argument) {
-                finalURL = url + "?search=" + argument + "&page_size=27";
+                finalURL = url + "?search=" + argument + "&page_size=27" + apiKey;
             } else {
-                finalURL = url + "?dates=" + getDate() + "&page_size=27";
+                finalURL = url + "?dates=" + getDate() + "&page_size=27" + apiKey;
             }
 
             fetch(`${finalURL}`)
